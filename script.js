@@ -27,6 +27,6 @@ const toLowerScreens = screens.toLowerCase().split(', ');
 console.log(toLowerScreens);
 
 // Вывести в консоль Процент отката посреднику за работу (fullPrice * (rollback/100))
-const percentRollback = (fullPrice * (rollback/100));
+const percentRollback = (fullPrice * (rollback / 100));
 
 console.log(percentRollback);
