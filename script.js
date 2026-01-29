@@ -1,7 +1,7 @@
 const title = 'ReactProject';
 const screens = 'Простые, Сложные, Интерактивные, Очень сложные, Гиперсложные';
 const screenPrice = 50;
-const rollback = 100;
+const rollback = 15;
 const fullPrice = 350;
 const adaptive = true;
 
@@ -27,7 +27,6 @@ const toLowerScreens = screens.toLowerCase().split(', ');
 console.log(toLowerScreens);
 
 // Вывести в консоль Процент отката посреднику за работу (fullPrice * (rollback/100))
-// Кажеться что формула в задании не верная, для вычесления процента. По этому я использовал другую формулу.
-const percentRollback = (rollback * 100) / fullPrice;
+const percentRollback = (fullPrice * (rollback/100));
 
 console.log(percentRollback);
