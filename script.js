@@ -1,9 +1,31 @@
-const title = 'ReactProject';
-const screens = 'Простые, Сложные, Интерактивные, Очень сложные, Гиперсложные';
-const screenPrice = 50;
-const rollback = 15;
-const fullPrice = 350;
-const adaptive = true;
+'use strict';
+
+const title = prompt('Как называется ваш проект?');
+const screens = prompt('Какие типы экранов нужно разработать? (Перечислите через запятую)', 'Простые, Сложные, Интерактивные');
+const screenPrice = parseFloat(prompt('Сколько будет стоить данная работа?'));
+const adaptive = prompt('Нужен ли адаптив на сайте?', 'Да/Нет').toLowerCase() === 'да';
+const service1 = prompt('Какой дополнительный тип услуги нужен?');
+const servicePrice1 = parseFloat(prompt('Сколько это будет стоить?'));
+const service2 = prompt('Какой дополнительный тип услуги нужен?');
+const servicePrice2 = parseFloat(prompt('Сколько это будет стоить?'));
+const rollback = 100;
+
+const fullPrice = screenPrice + servicePrice1 + servicePrice2;
+const servicePercentPrice = Math.ceil(fullPrice - rollback);
+
+console.log(servicePercentPrice);
+
+if (fullPrice >= 30000) {
+    console.log('Даем скидку в 10%');
+} else if (fullPrice >= 15000) {
+    console.log('Даем скидку в 5%');
+} else if (fullPrice >= 0) {
+    console.log('Скидка не предусмотрена');
+} else {
+    console.log('Что-то пошло не так');
+}
+
+
 
 // Вывести в консоль тип данных значений переменных title, fullPrice, adaptive;
 console.log(typeof title);
