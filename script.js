@@ -8,10 +8,10 @@ const service1 = prompt('Какой дополнительный тип услу
 const servicePrice1 = parseFloat(prompt('Сколько это будет стоить?'));
 const service2 = prompt('Какой дополнительный тип услуги нужен?');
 const servicePrice2 = parseFloat(prompt('Сколько это будет стоить?'));
-const rollback = 100;
+const rollback = 15;
 
 const fullPrice = screenPrice + servicePrice1 + servicePrice2;
-const servicePercentPrice = Math.ceil(fullPrice - rollback);
+const servicePercentPrice = Math.ceil(fullPrice - (fullPrice * (rollback / 100)));
 
 console.log(servicePercentPrice);
 
