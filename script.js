@@ -1,54 +1,87 @@
-'use strict';
+"use strict";
 
-const title = prompt('Как называется ваш проект?');
-const screens = prompt('Какие типы экранов нужно разработать? (Перечислите через запятую)', 'Простые, Сложные, Интерактивные');
-const screenPrice = parseFloat(prompt('Сколько будет стоить данная работа?'));
-const adaptive = prompt('Нужен ли адаптив на сайте?', 'Да/Нет').toLowerCase() === 'да';
-const service1 = prompt('Какой дополнительный тип услуги нужен?');
-const servicePrice1 = parseFloat(prompt('Сколько это будет стоить?'));
-const service2 = prompt('Какой дополнительный тип услуги нужен?');
-const servicePrice2 = parseFloat(prompt('Сколько это будет стоить?'));
+const title = prompt("Как называется ваш проект?");
+const screens = prompt(
+  "Какие типы экранов нужно разработать? (Перечислите через запятую)",
+  "Простые, Сложные, Интерактивные",
+);
+const screenPrice = +prompt("Сколько будет стоить данная работа?");
+const adaptive = confirm("Нужен ли адаптив на сайте?");
+const service1 = prompt("Какой дополнительный тип услуги нужен?");
+const servicePrice1 = +prompt("Сколько это будет стоить?");
+const service2 = prompt("Какой дополнительный тип услуги нужен?");
+const servicePrice2 = +prompt("Сколько это будет стоить?");
 const rollback = 15;
 
-const fullPrice = screenPrice + servicePrice1 + servicePrice2;
-const servicePercentPrice = Math.ceil(fullPrice - (fullPrice * (rollback / 100)));
+let layoutScreenPrice = "";
+let developmentFullPrice = "";
+let toLowerScreens = [];
+let percentRollback = 0;
+let fullPrice = 0;
+let servicePercentPrice = 0;
+let allServicePrices = 0;
+let formatedTitle = "";
 
-console.log(servicePercentPrice);
+const showTypeOf = function (variable) {
+  console.log(variable, typeof variable);
+};
 
-if (fullPrice >= 30000) {
-    console.log('Даем скидку в 10%');
-} else if (fullPrice >= 15000) {
-    console.log('Даем скидку в 5%');
-} else if (fullPrice >= 0) {
-    console.log('Скидка не предусмотрена');
-} else {
-    console.log('Что-то пошло не так');
+const getRollbackMessage = function (price) {
+  if (price >= 30000) {
+    return "Даем скидку в 10%";
+  } else if (price >= 15000) {
+    return "Даем скидку в 5%";
+  } else if (price >= 0) {
+    return "Скидка не предусмотрена";
+  } else {
+    return "Что-то пошло не так";
+  }
+};
+
+const getAllServicePrices = function (addService1, addService2) {
+  return addService1 + addService2;
+};
+
+const getTitle = function (nameProject) {
+  let deleteSpaces = "";
+
+  deleteSpaces = nameProject.trim();
+
+  return deleteSpaces[0].toUpperCase() + deleteSpaces.slice(1).toLowerCase();
+};
+
+const getServicePercentPrices = function (price, sumRollback) {
+  return price - sumRollback;
+};
+
+function getFullPrice(layoutСost, allServicePrices) {
+  return layoutСost + allServicePrices;
 }
 
+allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
 
+fullPrice = getFullPrice(screenPrice, allServicePrices);
 
-// Вывести в консоль тип данных значений переменных title, fullPrice, adaptive;
-console.log(typeof title);
-console.log(typeof fullPrice);
-console.log(typeof adaptive);
+formatedTitle = getTitle(title);
 
-// Вывести в консоль длину строки из переменной screens;
-console.log(screens.length);
+// Привести строку screens к нижнему регистру и разбить строку на массив
+toLowerScreens = screens.toLowerCase().split(", ");
 
-// Вывести в консоль “Стоимость верстки экранов (screenPrice) рублей/ долларов/гривен/юани”
+// Процент отката посреднику за работу (fullPrice * (rollback/100))
+percentRollback = fullPrice * (rollback / 100);
+
+servicePercentPrice = getServicePercentPrices(fullPrice, percentRollback);
+
+// “Стоимость верстки экранов (screenPrice) рублей/ долларов/гривен/юани”
 //  и “Стоимость разработки сайта (fullPrice) рублей/ долларов/гривен/юани”
-const layoutScreenPrice = `Стоимость верстки экранов ${screenPrice} песо`;
-const developmentFullPrice = "Стоимость разработки сайта" + " " + fullPrice + " " + "песо";
+layoutScreenPrice = `Стоимость верстки экранов ${screenPrice} песо`;
+developmentFullPrice =
+  "Стоимость разработки сайта" + " " + fullPrice + " " + "песо";
 
-console.log(layoutScreenPrice);
-console.log(developmentFullPrice);
+showTypeOf(title);
+showTypeOf(fullPrice);
+showTypeOf(adaptive);
 
-// Привести строку screens к нижнему регистру и разбить строку на массив, вывести массив в консоль
-const toLowerScreens = screens.toLowerCase().split(', ');
-
+console.log(getRollbackMessage(fullPrice));
 console.log(toLowerScreens);
-
-// Вывести в консоль Процент отката посреднику за работу (fullPrice * (rollback/100))
-const percentRollback = (fullPrice * (rollback / 100));
-
-console.log(percentRollback);
+console.log(servicePercentPrice);
